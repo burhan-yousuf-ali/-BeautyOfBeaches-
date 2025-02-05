@@ -1,75 +1,212 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Transparent Text Banner</title>
-  <style>
-    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive World Map: North, South, East, West</title>
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
 
-    body, html {
-      height: 100%;
-      font-family: Arial, sans-serif;
-    }
+        /* Map Container */
+        #map {
+            height: 100vh;
+            width: 100%;
+        }
 
-    .banner {
-      position: relative;
-      height: 100vh;
-      background: url('bannersample.png') no-repeat center center/cover;
-    }
+        /* Popup Styling */
+        .custom-popup {
+            font-size: 16px;
+            text-align: center;
+        }
 
-    .bannerkiimg {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.3);
-    }
-
-    .content {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      text-align: center;
-      color: white;
-    }
-
-    .content h1 {
-      font-size: 4rem;
-      font-weight: bold;
-      background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(10px);
-      padding: 10px 20px;
-      border-radius: 10px;
-    }
-
-    .content button {
-      margin-top: 20px;
-      padding: 10px 20px;
-      border: 2px solid white;
-      background: transparent;
-      color: white;
-      font-size: 1rem;
-      border-radius: 5px;
-      cursor: pointer;
-      transition: background 0.3s, color 0.3s;
-    }
-
-    .content button:hover {
-      background: white;
-      color: black;
-    }
-  </style>
+        .custom-popup img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-top: 10px;
+        }
+    </style>
 </head>
 <body>
-  <div class="banner">
-    <div class="bannerkiimg"></div>
-    <div class="content">
-      <h1>Salerno</h1>
-      <button>Find out more</button>
-    </div>
-  </div>
+
+    <!-- Map Container -->
+    <div id="map"></div>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
+
+<script>
+ // script.js
+
+document.addEventListener('DOMContentLoaded', () => {
+    // Initialize the map
+    const map = L.map('map').setView([20, 0], 2); // Centered on the world (latitude, longitude)
+
+    // Add a tile layer (OpenStreetMap)
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+        maxZoom: 18,
+    }).addTo(map);
+
+    // Define locations for North, South, East, and West (Global Locations)
+    const locations = [
+        // North Beaches
+        {
+            name: "Utqiaġvik Beach",
+            location: [71.2906, -156.7886], // Utqiaġvik, Alaska, USA
+            description: "A remote Arctic beach with icy waters and stunning northern lights.",
+            image: "https://via.placeholder.com/300x200?text=Utqiagvik+Beach"
+        },
+        {
+            name: "Reykjavik Beach",
+            location: [64.1466, -21.9426], // Reykjavik, Iceland
+            description: "A Nordic beach with black sands and geothermal pools nearby.",
+            image: "https://via.placeholder.com/300x200?text=Reykjavik+Beach"
+        },
+        {
+            name: "Lofoten Beach",
+            location: [68.1579, 14.3778], // Lofoten Islands, Norway
+            description: "A picturesque beach surrounded by fjords and mountains.",
+            image: "https://via.placeholder.com/300x200?text=Lofoten+Beach"
+        },
+        {
+            name: "Murmansk Beach",
+            location: [68.9707, 33.0747], // Murmansk, Russia
+            description: "A rugged Arctic beach with dramatic landscapes.",
+            image: "https://via.placeholder.com/300x200?text=Murmansk+Beach"
+        },
+        {
+            name: "Nuuk Beach",
+            location: [64.1814, -51.6941], // Nuuk, Greenland
+            description: "A serene beach with icy waters and views of glaciers.",
+            image: "https://via.placeholder.com/300x200?text=Nuuk+Beach"
+        },
+
+        // South Beaches
+        {
+            name: "Ushuaia Beach",
+            location: [-54.8065, -68.3073], // Ushuaia, Argentina
+            description: "The southernmost beach in the world with breathtaking views.",
+            image: "https://via.placeholder.com/300x200?text=Ushuaia+Beach"
+        },
+        {
+            name: "Cape Town Beach",
+            location: [-33.9249, 18.4241], // Cape Town, South Africa
+            description: "A vibrant beach with golden sands and Table Mountain in the background.",
+            image: "https://via.placeholder.com/300x200?text=Cape+Town+Beach"
+        },
+        {
+            name: "Punta Arenas Beach",
+            location: [-53.1631, -70.9169], // Punta Arenas, Chile
+            description: "A windswept beach near the Strait of Magellan.",
+            image: "https://via.placeholder.com/300x200?text=Punta+Arenas+Beach"
+        },
+        {
+            name: "Hobart Beach",
+            location: [-42.8821, 147.3272], // Hobart, Tasmania, Australia
+            description: "A tranquil beach with clear waters and lush greenery.",
+            image: "https://via.placeholder.com/300x200?text=Hobart+Beach"
+        },
+        {
+            name: "Christchurch Beach",
+            location: [-43.5321, 172.6306], // Christchurch, New Zealand
+            description: "A scenic beach with rolling waves and wildlife.",
+            image: "https://via.placeholder.com/300x200?text=Christchurch+Beach"
+        },
+
+        // East Beaches
+        {
+            name: "Kamakura Beach",
+            location: [35.3606, 139.7677], // Kamakura, Japan
+            description: "A historic beach known for its cultural heritage and sunrises.",
+            image: "https://via.placeholder.com/300x200?text=Kamakura+Beach"
+        },
+        {
+            name: "Bali Beach",
+            location: [-8.6500, 115.2167], // Bali, Indonesia
+            description: "A tropical paradise with white sands and turquoise waters.",
+            image: "https://via.placeholder.com/300x200?text=Bali+Beach"
+        },
+        {
+            name: "Sydney Beach",
+            location: [-33.8688, 151.2093], // Sydney, Australia
+            description: "A world-famous beach with iconic landmarks like the Opera House.",
+            image: "https://via.placeholder.com/300x200?text=Sydney+Beach"
+        },
+        {
+            name: "Phuket Beach",
+            location: [7.8906, 98.3984], // Phuket, Thailand
+            description: "A vibrant beach with crystal-clear waters and lively nightlife.",
+            image: "https://via.placeholder.com/300x200?text=Phuket+Beach"
+        },
+        {
+            name: "Maldives Beach",
+            location: [3.2028, 73.2207], // Maldives
+            description: "A luxurious beach with overwater bungalows and coral reefs.",
+            image: "https://via.placeholder.com/300x200?text=Maldives+Beach"
+        },
+
+        // West Beaches
+        {
+            name: "Santa Monica Beach",
+            location: [33.9850, -118.4859], // Santa Monica, California, USA
+            description: "A bustling beach with golden sands and a lively atmosphere.",
+            image: "https://via.placeholder.com/300x200?text=Santa+Monica+Beach"
+        },
+        {
+            name: "Cancun Beach",
+            location: [21.1619, -86.8515], // Cancun, Mexico
+            description: "A tropical beach with turquoise waters and luxury resorts.",
+            image: "https://via.placeholder.com/300x200?text=Cancun+Beach"
+        },
+        {
+            name: "Rio de Janeiro Beach",
+            location: [-22.9707, -43.1824], // Rio de Janeiro, Brazil
+            description: "A vibrant beach with stunning views of Sugarloaf Mountain.",
+            image: "https://via.placeholder.com/300x200?text=Rio+de+Janeiro+Beach"
+        },
+        {
+            name: "Maui Beach",
+            location: [20.7984, -156.3319], // Maui, Hawaii, USA
+            description: "A serene beach with volcanic landscapes and clear waters.",
+            image: "https://via.placeholder.com/300x200?text=Maui+Beach"
+        },
+        {
+            name: "Gold Coast Beach",
+            location: [-28.0167, 153.4000], // Gold Coast, Australia
+            description: "A popular surfers' paradise with long stretches of sand.",
+            image: "https://via.placeholder.com/300x200?text=Gold+Coast+Beach"
+        }
+    ];
+
+    // Add markers and popups for each location
+    locations.forEach(location => {
+        const marker = L.marker(location.location).addTo(map);
+
+        // Create popup content
+        const popupContent = `
+            <div class="custom-popup">
+                <h3>${location.name}</h3>
+                <p>${location.description}</p>
+                <img src="${location.image}" alt="${location.name}">
+            </div>
+        `;
+
+        // Bind popup to marker
+        marker.bindPopup(popupContent, {
+            maxWidth: 300,
+            closeButton: true,
+            className: 'custom-popup'
+        });
+    });
+});
+</script>

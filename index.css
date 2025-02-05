@@ -153,3 +153,18 @@
   }
   /* --------------------------------------------------- */
 
+  .hero {
+    text-align: center;
+    padding: 2rem;
+    background: #f0f8ff;
+  }
+  
+  .slider img {
+    width: 100%;
+    display: none;
+    height: 360px;
+  }
+  
+  .slider img.active {
+    display: block;
+  }
