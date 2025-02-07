@@ -2,7 +2,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family:  Tahoma, sans-serif;
   }
 
   
@@ -240,4 +240,79 @@ font-weight: 650;
     font-size: 2rem;
     color: #333;
     padding-bottom: 40px;
+  }
+
+
+
+  /*  */
+  .videokidiv {
+    display: flex;
+    min-height: 100vh;
+}
+
+.subdiv {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+    margin: 10px;
+}
+
+.video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.content1 {
+    flex: 1;
+    padding: 40px;
+    background: linear-gradient(to right, #f4f4f4, #ffffff);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.andarkacontent {
+    max-width: 500px;
+    margin: 0 auto;
+    
+}
+
+h1 {
+    color: #2c3e50;
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
+
+p {
+    
+    line-height: 1.6;
+    margin-bottom: 30px;
+}
+
+.cta-button {
+    background-color: #e74c3c;
+    color: white;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 25px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.cta-button:hover {
+    background-color: #c0392b;
+}
+
+@media (max-width: 768px) {
+    .split-container {
+        flex-direction: column;
+    }
+    
+    .video-container,
+    .content-container {
+        width: 100%;
+        min-height: 50vh;
+    }
   }
