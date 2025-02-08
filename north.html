@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="index.css">
+
+     <!-- Leaflet CSS -->
+     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+     <!-- Font Awesome for Icons -->
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+     <!-- Google Fonts -->
+     <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+</head>
+<body>
+   <!-- navbar -->
+   <nav class="navbar">
+    <div class="qq">
+      <a href="index.html" class="logo">
+        <i class="fas fa-umbrella-beach"></i>
+      BeautyOfBeaaches
+      </a>
+      
+      <ul class="navlinks">
+        <li><a href="index.html"><i class="fas fa-home"></i>Home</a></li>
+        <li>
+          <a href="#"><i class="fas fa-info-circle"></i>About <i class="fas fa-chevron-down"></i></a>
+          <ul class="dropdown">
+            <li><a href="story.html">Our Story</a></li>
+            <li><a href="testonomial.html">Testimonials</a></li>
+          </ul>
+        </li>
+        <li>
+          <a href="#"><i class="fa-solid fa-monument"></i>Monuments <i class="fas fa-chevron-down"></i></a>
+          <ul class="dropdown">
+            <li><a href=".html">North</a></li>
+            <li><a href=".html">South</a></li>
+            <li><a href=".html">East</a></li>
+            <li><a href=".html">West</a></li>
+          </ul>
+        </li>
+        <li>
+          <a href="#"><i class="fas fa-concierge-bell"></i>Services <i class="fas fa-chevron-down"></i></a>
+          <ul class="dropdown">
+            <li><a href="water.html">Water Sports</a></li>
+            <li><a href="#">Accommodation</a></li>
+            
+          </ul>
+        </li>
+        <li><a href="gallery.html"><i class="fas fa-image"></i>Gallery <i class="fas fa-chevron-down"></i></a>
+          <ul class="dropdown">
+            <li><a href="north.html">North</a></li>
+            <li><a href="south.html">South</a></li>
+            <li><a href="east.html">East</a></li>
+            <li><a href="west.html">West</a></li>
+          </ul>
+        </li>
+        <li><a href="contact.html" class="hh">Contact Us</a></li>
+      </ul>
+
+      <button class="btn">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+  </nav>
+  <!-- navbar -->
+
+    <!-- Map Container -->
+    <div id="map"></div>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+      // Initialize the map
+      const map = L.map('map').setView([40, 0], 3); // Centered on the Northern Hemisphere
+  
+      // Add a tile layer (OpenStreetMap)
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 18,
+        attribution: '© OpenStreetMap contributors'
+      }).addTo(map);
+  
+      // Array of beaches with coordinates, descriptions, and images
+      const beaches = [
+        {
+          name: "Waikiki Beach",
+          location: "Hawaii, USA",
+          description: "A famous beach known for its golden sand and surfing.",
+          image: "https://via.placeholder.com/150?text=Waikiki+Beach",
+          coords: [21.2791, -157.8395]
+        },
+        {
+          name: "Cancun Beach",
+          location: "Mexico",
+          description: "A tropical paradise with turquoise waters.",
+          image: "https://via.placeholder.com/150?text=Cancun+Beach",
+          coords: [21.1333, -86.8500]
+        },
+        {
+          name: "Santorini Beach",
+          location: "Greece",
+          description: "A stunning beach with volcanic sand and white cliffs.",
+          image: "https://via.placeholder.com/150?text=Santorini+Beach",
+          coords: [36.3932, 25.4615]
+        },
+        {
+          name: "Santa Monica Beach",
+          location: "California, USA",
+          description: "A popular beach with a historic pier.",
+          image: "https://via.placeholder.com/150?text=Santa+Monica+Beach",
+          coords: [34.0100, -118.4900]
+        },
+        {
+          name: "Miami Beach",
+          location: "Florida, USA",
+          description: "A lively beach with Art Deco architecture.",
+          image: "https://via.placeholder.com/150?text=Miami+Beach",
+          coords: [25.7907, -80.1300]
+        },
+        {
+          name: "Bora Bora Beach",
+          location: "French Polynesia",
+          description: "A dreamy lagoon surrounded by lush mountains.",
+          image: "https://via.placeholder.com/150?text=Bora+Bora+Beach",
+          coords: [-16.5004, -151.7415]
+        },
+        {
+          name: "Laguna Beach",
+          location: "California, USA",
+          description: "A picturesque beach with tide pools and cliffs.",
+          image: "https://via.placeholder.com/150?text=Laguna+Beach",
+          coords: [33.5425, -117.7847]
+        },
+        {
+          name: "Playa del Carmen",
+          location: "Mexico",
+          description: "A beautiful beach with clear waters and coral reefs.",
+          image: "https://via.placeholder.com/150?text=Playa+del+Carmen",
+          coords: [20.6296, -87.0755]
+        },
+        {
+          name: "Tulum Beach",
+          location: "Mexico",
+          description: "A serene beach near ancient Mayan ruins.",
+          image: "https://via.placeholder.com/150?text=Tulum+Beach",
+          coords: [20.2088, -87.4541]
+        },
+        {
+          name: "Venice Beach",
+          location: "California, USA",
+          description: "A quirky beach known for its boardwalk and street performers.",
+          image: "https://via.placeholder.com/150?text=Venice+Beach",
+          coords: [33.9850, -118.4745]
+        }
+      ];
+  
+      // Function to add markers with blue pointers
+      function addMarkers() {
+        beaches.forEach((beach) => {
+          // Create a custom blue marker icon
+          const blueIcon = L.icon({
+            iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-blue.png',
+            shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-shadow.png',
+            iconSize: [25, 41], // Size of the icon
+            iconAnchor: [12, 41], // Point of the icon which will correspond to marker's location
+            popupAnchor: [1, -34], // Point from which the popup should open relative to the iconAnchor
+            shadowSize: [41, 41] // Size of the shadow
+          });
+  
+          // Add marker to the map
+          const marker = L.marker(beach.coords, { icon: blueIcon }).addTo(map);
+  
+          // Create popup content
+          const popupContent = `
+            <div>
+              <img src="${beach.image}" alt="${beach.name}" class="popup-image">
+              <h3>${beach.name}</h3>
+              <p><strong>Location:</strong> ${beach.location}</p>
+              <p>${beach.description}</p>
+            </div>
+          `;
+  
+          // Bind popup to marker
+          marker.bindPopup(popupContent);
+        });
+      }
+  
+      // Call the function to add markers
+      addMarkers();
+    </script>
+  </body>
+</body>
+</html>

@@ -8,19 +8,19 @@
   
   .navbar {
     background: linear-gradient(135deg, #6dd5ed, #2193b0);
-    padding: 0 2rem;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    color: white;
+    padding: 10px 20px;
+    position: relative;
+    z-index: 1000;
   }
-
   .qq {
     display: flex;
     justify-content: space-between;
     align-items: center;
     max-width: 1200px;
-    margin: 0 auto;
-    padding: 1rem 0;
+    /* margin: 0 auto; */
+    /* padding: 1rem 0; */
   }
-
   .logo {
     color: #fff;
     font-size: 2rem;
@@ -31,23 +31,18 @@
     align-items: center;
     gap: 0.5rem;
   }
-
   .logo i {
     color: #ffdd57;
     font-size: 1.8rem;
   }
-
- 
   .navlinks {
     display: flex;
     gap: 10px;
     list-style: none;
   }
-
   .navlinks li {
     position: relative;
   }
-
   .navlinks a {
     color: #fff;
     text-decoration: none;
@@ -58,13 +53,10 @@
     align-items: center;
     gap: 0.3rem;
   }
-
   .navlinks a:hover {
     background: rgba(255, 255, 255, 0.2);
     color: #ffdd57;
   }
-
- 
   .dropdown {
     display: none;
     position: absolute;
@@ -76,27 +68,21 @@
     min-width: 200px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   }
-
   .dropdown li {
     margin: 0.5rem 0;
   }
-
   .dropdown a {
     color: #2193b0 !important;
     padding: 0.5rem;
     border-radius: 5px;
   }
-
   .dropdown a:hover {
     background: #2193b0 !important;
     color: white !important;
   }
-
   li:hover .dropdown {
     display: block;
   }
-
- 
   .btn {
     display: none;
     background: none;
@@ -105,7 +91,6 @@
     font-size: 1.5rem;
     cursor: pointer;
   }
-
   @media (max-width: 768px) {
     .navlinks {
       display: none;
@@ -117,27 +102,21 @@
       padding: 1rem;
       flex-direction: column;
     }
-
     .navlinks.active {
       display: flex;
     }
-
     .dropdown {
       position: static;
       background: rgba(255, 255, 255, 0.1);
       margin-top: 0.5rem;
     }
-
     .dropdown a {
       color: white !important;
     }
-
     .btn {
       display: block;
     }
   }
-
- 
   .hh {
     background: #ffdd57;
     color: #2193b0 !important;
@@ -146,10 +125,26 @@
     font-weight: bold;
     transition: transform 0.3s ease;
   }
-
   .hh:hover {
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(255, 221, 87, 0.3);
+  }
+
+
+  /* Map Styles */
+  #map {
+    width: 100%;
+    height: calc(100vh - 80px); /* Adjust height based on navbar height */
+  }
+  .popup-image {
+    width: 150px;
+    height: auto;
+    border-radius: 8px;
+  }
+  .leaflet-popup-content {
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.4;
   }
   /* --------------------------------------------------- */
 
@@ -583,3 +578,5 @@ p {
 ::-webkit-scrollbar-thumb:hover {
   background:linear-gradient(#a2d1d3, #94c1c5);
 }
+
+
